@@ -61,6 +61,12 @@ namespace Avalanche.Rest.Controllers
                 homeRequest.Header = GetPage( header.Value );
             }
 
+            var menu = GlobalAttributesCache.Value( "AvalancheMenuPage" ).AsIntegerOrNull();
+            if ( menu != null )
+            {
+                homeRequest.Menu = GetPage( menu.Value );
+            }
+
             homeRequest.Page = GetPage( GlobalAttributesCache.Value( "AvalancheHomePage" ).AsInteger() );
             return homeRequest;
         }
@@ -191,25 +197,6 @@ namespace Avalanche.Rest.Controllers
                 }
             }
             return new MobileBlockResponse();
-        }
-
-        [HttpGet]
-        [Authenticate]
-        [System.Web.Http.Route( "api/avalanche/token" )]
-        public RckipidToken GetToken()
-        {
-            var person = GetPerson();
-            if ( person == null )
-            {
-                return null;
-            }
-            var expiration = Rock.RockDateTime.Now.AddDays( 7 );
-            var token = PersonToken.CreateNew( person.PrimaryAlias, expiration, 1, null );
-            return new RckipidToken
-            {
-                Expiration = expiration,
-                Token = token
-            };
         }
 
         [HttpPost]

@@ -1,14 +1,33 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<?xml version="1.0" encoding="utf-8" ?>
+<MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Avalanche"
              x:Class="Avalanche.Views.MainPage"
              NavigationPage.HasNavigationBar="False">
-    <Grid x:Name="MainGrid" HorizontalOptions="FillAndExpand">
-        <StackLayout HorizontalOptions="Center" Margin="0,40">
-            <ActivityIndicator Color="Orange" x:Name="ActivityIndicator" IsRunning="True"/>
-            <Label x:Name="lTimeout" HorizontalTextAlignment="Center" Text="We're having trouble getting the information for this page.&#x0a;Sorry about that." Opacity="0"/>
-            <Button Text="Go Back" x:Name="btnBack" Clicked="btnBack_Clicked" Opacity="0"/>
-        </StackLayout>
-    </Grid>
+    <MasterDetailPage.Master>
+        <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="using:MasterDetailPageNavigation"
+             x:Class="MasterDetailPageNavigation.MasterPage"
+             Padding="0,40,0,0"
+             Icon="hamburger.png"
+             Title="Personal Organiser">
+    <StackLayout>
+       <ListView x:Name="EmployeeView">
+      </ListView>
+    </StackLayout>
 </ContentPage>
+        <!--<local:MasterPage x:Name="masterPage" />-->
+    </MasterDetailPage.Master>
+    <MasterDetailPage.Detail>
+        <ContentPage x:Name="masterDetailContent">
+            <Grid x:Name="MainGrid" HorizontalOptions="FillAndExpand">
+            <StackLayout HorizontalOptions="Center" Margin="0,40">
+                <ActivityIndicator Color="Orange" x:Name="ActivityIndicator" IsRunning="True"/>
+                <Label x:Name="lTimeout" HorizontalTextAlignment="Center" Text="We're having trouble getting the information for this page.&#x0a;Sorry about that." Opacity="0"/>
+                <Button Text="Go Back" x:Name="btnBack" Clicked="btnBack_Clicked" Opacity="0"/>
+            </StackLayout>
+            </Grid>
+        </ContentPage>
+    </MasterDetailPage.Detail>
+</MasterDetailPage>

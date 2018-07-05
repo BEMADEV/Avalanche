@@ -30,7 +30,7 @@ using Newtonsoft.Json;
 
 namespace Avalanche.Views
 {
-    public partial class MainPage : ContentPage
+    public partial class MainPage : MasterDetailPage
     {
         public ObservableResource<MobilePage> observableResource = new ObservableResource<MobilePage>();
         private List<IHasMedia> mediaBlocks = new List<IHasMedia>();
@@ -56,6 +56,14 @@ namespace Avalanche.Views
         public MainPage()
         {
             InitializeComponent();
+            EmployeeView.ItemsSource = new string[]{
+              "Sample Item 1",
+              "Sample Item 2",
+              "Sample Item 3",
+              "Sample Item 4",
+              "Sample Item 5"
+            };
+
             observableResource.PropertyChanged += ObservableResource_PropertyChanged;
             Task.Run( () => { Handle_Timeout(); } );
         }
@@ -70,11 +78,13 @@ namespace Avalanche.Views
                 resource += "/" + parameter;
             }
             RockClient.GetResource<MobilePage>( observableResource, "/api/avalanche/" + resource );
-            Content.Margin = new Thickness(
+            /*
+            masterDetailContent.Content.Margin = new Thickness(
                 AvalancheNavigation.SafeInset.Left,
                 AvalancheNavigation.SafeInset.Top + AvalancheNavigation.YOffSet,
                 AvalancheNavigation.SafeInset.Right,
                 AvalancheNavigation.SafeInset.Bottom );
+            */
         }
 
         private void ObservableResource_PropertyChanged( object sender, System.ComponentModel.PropertyChangedEventArgs e )
@@ -150,6 +160,7 @@ namespace Avalanche.Views
                     }
                 }
             }
+
             if ( ActivityIndicator.IsRunning == false )
             {
                 layout.Opacity = 0;
@@ -305,6 +316,7 @@ namespace Avalanche.Views
             await Task.Delay( Constants.timeout * 1000 );
             if ( ActivityIndicator.IsRunning )
             {
+                
                 lTimeout.FadeTo( 1 );
                 if ( Navigation.NavigationStack.Count > 1 )
                 {

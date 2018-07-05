@@ -35,13 +35,16 @@ namespace Avalanche
             observableResource.PropertyChanged += ObservableResource_PropertyChanged;
             RockClient.GetResource( observableResource, "/api/avalanche/home" );
             mainPage = new MainPage();
-            App.Navigation = new Xamarin.Forms.NavigationPage( mainPage );
-            Children.Add( App.Navigation );
+            //App.Navigation = new Xamarin.Forms.NavigationPage( mainPage );
+            //Children.Add( App.Navigation );
+
+            /*
             if ( !App.Current.Properties.ContainsKey( "SecondRun" ) )
             {
                 App.Navigation.Navigation.PushModalAsync( new LaunchPage() );
                 App.Current.Properties["SecondRun"] = true;
             }
+            */
         }
 
         private void ObservableResource_PropertyChanged( object sender, System.ComponentModel.PropertyChangedEventArgs e )
@@ -89,11 +92,13 @@ namespace Avalanche
                     AvalancheNavigation.SafeInset.Bottom = 0;
                 }
 
-                mainPage.Content.Margin = new Thickness(
+                /*
+                Content.Margin = new Thickness(
                     AvalancheNavigation.SafeInset.Left,
                     AvalancheNavigation.YOffSet + AvalancheNavigation.SafeInset.Top,
                     AvalancheNavigation.SafeInset.Right,
                     AvalancheNavigation.SafeInset.Bottom );
+                */
 
                 App.Navigation.TranslationY = AvalancheNavigation.YOffSet * -1;
             }
